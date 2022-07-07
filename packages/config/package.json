@@ -1,0 +1,29 @@
+{
+  "name": "@pikas-utils/config",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "eslint-preset.js",
+    "prettier-preset.js"
+  ],
+  "scripts": {
+    "clean": "rm -rf .turbo && rm -rf node_modules"
+  },
+  "dependencies": {
+    "@next/eslint-plugin-next": "12.2.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^8.19.0",
+    "eslint-config-next": "^12.2.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-json": "^3.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-react": "^7.30.1",
+    "eslint-plugin-react-hooks": "^4.5.0",
+    "eslint-plugin-storybook": "^0.5.13",
+    "typescript": "^4.7.4"
+  }
+}

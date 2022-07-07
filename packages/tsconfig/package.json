@@ -1,0 +1,12 @@
+{
+  "name": "@pikas-utils/tsconfig",
+  "version": "0.0.0",
+  "private": true,
+  "main": "index.js",
+  "files": [
+    "base.json",
+    "package-default.json",
+    "package-react.json",
+    "storybook.json"
+  ]
+}
