@@ -1,12 +1,12 @@
 type GetLink<T extends Record<string, string>> = (
   key: keyof T,
-  config: {
+  config?: {
     withOrigin?: boolean
     queries?: Record<string, string | number>
     hash?: string
     lang?: string
   }
-) => string | null
+) => string
 
 export const routes = <T extends Record<string, string>>({
   origin,
@@ -17,38 +17,31 @@ export const routes = <T extends Record<string, string>>({
 }): {
   getLink: GetLink<T>
 } => {
-  const getLink: GetLink<T> = (key, { withOrigin, queries, hash, lang }) => {
-    if (!links[key]) {
-      return null
-    }
+  const getLink: GetLink<T> = (key, configs) => {
+    let link: string = links[key]
 
-    const link = links[key]
-
-    if (queries) {
-      for (const [key, value] of Object.entries(queries)) {
-        link.replace(`:${key}`, value.toString())
+    let queriesFormatted = ''
+    if (configs?.queries) {
+      for (const [key, value] of Object.entries(configs.queries)) {
+        if (link.includes(`:${key}`)) {
+          link = link.replace(`:${key}`, value.toString())
+        } else {
+          queriesFormatted += `${queriesFormatted ? '&' : '?'}${key}=${value}`
+        }
       }
     }
 
-    const queriesFormatted = queries
-      ? Object.entries(queries)
-          .map(([key, value]) => {
-            return `${key}=${value}`
-          })
-          .join('&')
-      : ''
-
     let url = ''
-    if (withOrigin) {
+    if (configs?.withOrigin) {
       url += origin
     }
-    if (lang) {
-      url += `/${lang}`
+    if (configs?.lang) {
+      url += `/${configs?.lang}`
     }
     url += link
     url += queriesFormatted
-    if (hash) {
-      url += `#${hash}`
+    if (configs?.hash) {
+      url += `#${configs?.hash}`
     }
     return url
   }
